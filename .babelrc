@@ -2,12 +2,25 @@
   "env": {
     "commonjs": {
       "presets": [
-        ["env", { "loose": true }], "react"
+        [
+          "env",
+          {
+            "loose": true
+          }
+        ],
+        "react"
       ]
     },
     "es": {
       "presets": [
-        ["env", { "modules": false, "loose": true }], "react"
+        [
+          "env",
+          {
+            "modules": false,
+            "loose": true
+          }
+        ],
+        "react"
       ]
     }
   }

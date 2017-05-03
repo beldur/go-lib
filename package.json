@@ -28,9 +28,9 @@
     "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -i src/index.js -o dist/go-lib.min.js",
     "build": "yarn run build:commonjs && yarn run build:es && yarn run build:umd && yarn run build:umd:min",
     "prepublish": "yarn run clean && yarn run build",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test": "cross-env BABEL_ENV=commonjs jest",
+    "test:watch": "cross-env BABEL_ENV=commonjs jest --watch",
+    "test:coverage": "cross-env BABEL_ENV=commonjs jest --coverage",
     "example": "cross-env BABEL_ENV=es NODE_ENV=serve rollup -c -w -i src/index.js -o dist/go-lib.js"
   },
   "jest": {
