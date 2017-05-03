@@ -1,7 +1,8 @@
 // @flow
 
-import type { Move } from './types.js'
-import React, { PropTypes } from 'react'
+import type { Move } from 'go-lib'
+import React from 'react'
+import PropTypes from 'prop-types'
 import BoardDrawer from './board-drawer.js'
 
 type BoardDefaultProps = {
@@ -16,7 +17,6 @@ type BoardProps = BoardDefaultProps & {
 
 // Board draw's a Go Board
 class Board extends React.PureComponent<BoardDefaultProps, BoardProps, any> {
-
   static defaultProps: BoardDefaultProps
 
   props: BoardProps
@@ -54,9 +54,7 @@ class Board extends React.PureComponent<BoardDefaultProps, BoardProps, any> {
   }
 
   render() {
-    return (
-      <canvas ref={c => this.canvas = c} />
-    )
+    return <canvas ref={c => (this.canvas = c)} />
   }
 }
 
@@ -64,9 +62,11 @@ Board.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   size: PropTypes.number,
-  moves: PropTypes.arrayOf(PropTypes.shape({
-    color: PropTypes.oneOf(['B', 'W']),
-  })),
+  moves: PropTypes.arrayOf(
+    PropTypes.shape({
+      color: PropTypes.oneOf(['B', 'W']),
+    }),
+  ),
 }
 
 Board.defaultProps = {

@@ -9,9 +9,9 @@ coverage
 # production
 dist
 lib
+es
 
 # misc
 .DS_Store
 *.log
 .vscode
-flow-typed

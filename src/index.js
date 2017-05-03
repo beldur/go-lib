@@ -1,5 +1,5 @@
+// @flow
+
 import Board from './board.js'
 
-export {
-  Board
-}
+export { Board }

@@ -1,6 +1,6 @@
 // @flow
 
-import type { Move, Point } from './types.js'
+import type { Move, Point } from 'go-lib'
 
 const LINE_WIDTH_FACTOR = 20
 const FONT_SIZE_FACTOR = 2.5
@@ -31,7 +31,7 @@ class BoardDrawer {
     const { boardSize, boxSize } = this
     const starPos = boardSize === 9 ? 3 : 4
     const single = starPos * boxSize
-    const double = ((boardSize + 1) / 2) * boxSize
+    const double = (boardSize + 1) / 2 * boxSize
     const triple = (boardSize + 1 - starPos) * boxSize
     const stars = [{ x: double, y: double }]
 
@@ -79,18 +79,30 @@ class BoardDrawer {
       const isLastMove = index === moves.length - 1
 
       // Draw stone
-      ctx.fillStyle = (move.color === 'B') ? '#000' : '#FFF'
+      ctx.fillStyle = move.color === 'B' ? '#000' : '#FFF'
       ctx.beginPath()
-      ctx.arc(move.pos[0] * boxSize, move.pos[1] * boxSize, boxSize / 2, 0, 2 * Math.PI)
+      ctx.arc(
+        move.pos[0] * boxSize,
+        move.pos[1] * boxSize,
+        boxSize / 2,
+        0,
+        2 * Math.PI,
+      )
       ctx.stroke()
       ctx.fill()
 
       // Mark last move
       if (isLastMove) {
         ctx.beginPath()
-        ctx.fillStyle = (move.color === 'B') ? '#FFF' : '#000'
+        ctx.fillStyle = move.color === 'B' ? '#FFF' : '#000'
         ctx.lineWidth = lineWidth
-        ctx.arc(move.pos[0] * boxSize, move.pos[1] * boxSize, boxSize / 3.5, 0, 2 * Math.PI)
+        ctx.arc(
+          move.pos[0] * boxSize,
+          move.pos[1] * boxSize,
+          boxSize / 3.5,
+          0,
+          2 * Math.PI,
+        )
         ctx.stroke()
       }
     })
@@ -123,7 +135,7 @@ class BoardDrawer {
     ctx.beginPath()
     ctx.fillStyle = '#000'
 
-    stars.forEach((pos) => {
+    stars.forEach(pos => {
       ctx.moveTo(pos.x, pos.y)
       ctx.arc(pos.x, pos.y, boxSize / STAR_POINT_SIZE_FACTOR, 0, 2 * Math.PI)
     })

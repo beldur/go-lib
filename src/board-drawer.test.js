@@ -48,7 +48,7 @@ describe('BoardDrawer', () => {
 
   it('should render correct amount of stones', () => {
     const drawer = new BoardDrawer(19, 100, 100)
-		const moves = [
+    const moves = [
       { pos: [16, 4], color: 'B' },
       { pos: [4, 16], color: 'W' },
       { pos: [16, 17], color: 'B' },

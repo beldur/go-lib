@@ -2,51 +2,63 @@
   "name": "go-lib",
   "version": "0.1.4",
   "description": "A React Component that renders a GO Board",
-  "main": "lib/index.js",
   "author": "Alexander Lücking <alexluecking@gmail.com>",
+  "browser": "dist/go-lib.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "license": "MIT",
   "files": [
+    "dist",
     "lib",
+    "es",
     "src",
-    "dist"
+    "README.md",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/beldur/go-lib.git"
   },
   "scripts": {
-    "clean": "rimraf lib dist",
-    "build:commonjs": "babel src --out-dir lib --ignore *.test.js",
-    "build:umd": "webpack",
-    "build:umd:min": "cross-env NODE_ENV=production webpack -p",
-    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min",
-    "prepublish": "npm run clean && npm run build",
+    "clean": "rimraf lib dist es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --ignore *.test.js",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --ignore *.test.js",
+    "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -i src/index.js -o dist/go-lib.js",
+    "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -i src/index.js -o dist/go-lib.min.js",
+    "build": "yarn run build:commonjs && yarn run build:es && yarn run build:umd && yarn run build:umd:min",
+    "prepublish": "yarn run clean && yarn run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "example": "webpack-dev-server --progress --content-base example"
+    "example": "cross-env BABEL_ENV=es NODE_ENV=serve rollup -c -w -i src/index.js -o dist/go-lib.js"
   },
   "jest": {
     "verbose": true
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
-    "babel-loader": "^6.3.2",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.1.11",
     "babel-preset-react": "^6.23.0",
-    "cross-env": "^3.1.4",
+    "cross-env": "^4.0.0",
     "enzyme": "^2.7.1",
     "jest": "^19.0.2",
+    "prop-types": "^15.5.8",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "rimraf": "^2.6.1",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-serve": "^0.3.0",
+    "rollup-plugin-uglify": "^1.0.2",
+    "rollup-watch": "^3.2.2"
   },
-  "dependencies": {},
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "prop-types": "^15.5.8",
+    "react": "^15.4.2"
   }
 }

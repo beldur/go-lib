@@ -1,11 +1,6 @@
 // @flow
 
-export type Point = {
-  x: number,
-  y: number,
-}
-
-export type Move = {
-  pos: Point,
-  color: 'W' | 'B',
-}
+export type {
+  Point,
+  Move,
+} from 'go-lib'
