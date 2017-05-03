@@ -1,6 +1,6 @@
 {
   "name": "go-lib",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A React Component that renders a GO Board",
   "author": "Alexander Lücking <alexluecking@gmail.com>",
   "browser": "dist/go-lib.js",
@@ -13,6 +13,7 @@
     "lib",
     "es",
     "src",
+    "flow-typed",
     "README.md",
     "LICENSE"
   ],
