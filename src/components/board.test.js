@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
 import Board from './board.js'
-import { newCanvas2dContextMock } from './board-drawer.test.js'
+import { newCanvas2dContextMock } from './util/board-drawer.test.js'
 
 describe('Board', () => {
   it('should instantiate without errors', () => {

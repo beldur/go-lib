@@ -19,12 +19,12 @@ $ yarn add go-lib
 ```js
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Board } from 'go-lib'
+import { Board } from 'go-lib/components'
 
-const moves = [
-  { pos: [16, 4], color: 'B' },
-  { pos: [4, 16], color: 'W' },
+const stones = [
+  { coordinate: { x: 16, y: 4 }, color: 'B' },
+  { coordinate: { x: 4, y: 16 }, color: 'W' },
 ]
 
-ReactDOM.render(<Board size={19} moves={moves} />, document.body)
+ReactDOM.render(<Board size={19} positions={stones} />, document.body)
 ```

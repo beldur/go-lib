@@ -1,0 +1,7 @@
+{
+  "name": "go-lib/components",
+  "private": true,
+  "main": "../lib/components.js",
+  "module": "../es/components.js",
+  "jsnext:main": "../es/components.js"
+}

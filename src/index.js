@@ -1,5 +1,5 @@
 // @flow
 
-import Board from './board.js'
+import * as components from './components'
 
-export { Board }
+export { components }

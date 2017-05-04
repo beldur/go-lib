@@ -1,47 +1,42 @@
-
 <html>
 
-	<head>
-		<script src="https://unpkg.com/react@15/dist/react.js"></script>
-		<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
-		<script src="https://unpkg.com/prop-types@15/prop-types.js"></script>
+<head>
+  <script src="https://unpkg.com/react@15/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/prop-types@15/prop-types.js"></script>
 
-		<script src="go-lib.js"></script>
-	</head>
-	<body>
-		<div id="board-wrapper" style="width: 500px; height: 500px;" onclick="handleOnClick()"></div>
+  <script src="go-lib.js"></script>
+</head>
 
-		<script>
-			let pos = 0
-			const moves = [
-				{ pos: [16, 4], color: 'B' },
-				{ pos: [4, 16], color: 'W' },
-				{ pos: [16, 17], color: 'B' },
-				{ pos: [4, 4], color: 'W' },
-				{ pos: [17, 11], color: 'B' },
-				{ pos: [13, 16], color: 'W' },
-				{ pos: [16, 15], color: 'B' },
-				{ pos: [10, 16], color: 'W' },
-				{ pos: [3, 14], color: 'B' },
-				{ pos: [3, 12], color: 'W' },
-			]
+<body>
+  <div id="board-wrapper" style="width: 500px; height: 500px;"></div>
 
-			const render = () => {
-				const board = React.createElement(GoLib.Board, {
-					width: 500,
-					height: 500,
-					size: 19,
-					moves: moves.slice(0, pos),
-				})
-				ReactDOM.render(board, document.getElementById('board-wrapper'))
-			}
+  <script>
+    let color = 'B'
+    const stones = []
 
-			const handleOnClick = () => {
-				pos = pos === moves.length - 1 ? pos : pos + 1
-				render()
-			}
+    const render = () => {
+      const board = React.createElement(GoLib.components.Board, {
+        width: 500,
+        height: 500,
+        size: 19,
+        positions: stones,
+        onPositionClick: handleBoardPositionClick,
+      })
 
-			render()
-		</script>
-	</body>
+      ReactDOM.render(board, document.getElementById('board-wrapper'))
+    }
+
+    const handleBoardPositionClick = (coordinate) => {
+      stones.push({ color, coordinate })
+
+      color = color === 'B' ? 'W' : 'B'
+
+      render()
+    }
+
+    render()
+  </script>
+</body>
+
 </html>

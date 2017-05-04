@@ -1,6 +1,3 @@
 // @flow
 
-export type {
-  Point,
-  Move,
-} from 'go-lib'
+export type { Coordinate, Move } from 'go-lib'

@@ -1,6 +1,6 @@
 // @flow
 
-import type { Move, Point } from 'go-lib'
+import type { Move, Coordinate } from 'go-lib'
 
 const LINE_WIDTH_FACTOR = 20
 const FONT_SIZE_FACTOR = 2.5
@@ -15,7 +15,7 @@ class BoardDrawer {
   width: number
   height: number
   boardSize: number
-  stars: Array<Point>
+  stars: Array<Coordinate>
 
   constructor(boardSize: number, width: number, height: number) {
     this.boxSize = width / (boardSize + 1)
@@ -82,9 +82,9 @@ class BoardDrawer {
       ctx.fillStyle = move.color === 'B' ? '#000' : '#FFF'
       ctx.beginPath()
       ctx.arc(
-        move.pos[0] * boxSize,
-        move.pos[1] * boxSize,
-        boxSize / 2,
+        move.coordinate.x * boxSize,
+        move.coordinate.y * boxSize,
+        boxSize / 2 - lineWidth,
         0,
         2 * Math.PI,
       )
@@ -94,11 +94,11 @@ class BoardDrawer {
       // Mark last move
       if (isLastMove) {
         ctx.beginPath()
-        ctx.fillStyle = move.color === 'B' ? '#FFF' : '#000'
+        ctx.strokeStyle = move.color === 'B' ? '#FFF' : '#000'
         ctx.lineWidth = lineWidth
         ctx.arc(
-          move.pos[0] * boxSize,
-          move.pos[1] * boxSize,
+          move.coordinate.x * boxSize,
+          move.coordinate.y * boxSize,
           boxSize / 3.5,
           0,
           2 * Math.PI,
@@ -166,6 +166,14 @@ class BoardDrawer {
     this.coordinates(ctx)
     this.starPoints(ctx)
     this.stones(ctx, moves)
+  }
+
+  // calculateCoordinateFromMousePosition convert's a canvas mouse position to a board coordinate
+  calculateCoordinateFromMousePosition(mousePosition: Coordinate): Coordinate {
+    const x = Math.round(mousePosition.x / this.boxSize)
+    const y = Math.round(mousePosition.y / this.boxSize)
+
+    return { x, y }
   }
 }
 

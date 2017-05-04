@@ -9,6 +9,9 @@
           }
         ],
         "react"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     },
     "es": {
@@ -21,6 +24,9 @@
           }
         ],
         "react"
+      ],
+      "plugins": [
+        "transform-class-properties"
       ]
     }
   }

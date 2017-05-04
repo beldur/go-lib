@@ -1,13 +1,15 @@
 // @flow
 
 declare module 'go-lib' {
-  declare type Point = {
+  declare type Coordinate = {
     x: number,
     y: number,
   }
 
+  declare type Color = 'W' | 'B'
+
   declare type Move = {
-    pos: Point,
-    color: 'W' | 'B',
+    coordinate: Coordinate,
+    color: Color,
   }
 }

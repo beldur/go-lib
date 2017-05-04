@@ -1,4 +1,4 @@
-import BoardDrawer from './board-drawer.js'
+import BoardDrawer from './board-drawer'
 
 let canvas2dContextMock
 
@@ -49,9 +49,9 @@ describe('BoardDrawer', () => {
   it('should render correct amount of stones', () => {
     const drawer = new BoardDrawer(19, 100, 100)
     const moves = [
-      { pos: [16, 4], color: 'B' },
-      { pos: [4, 16], color: 'W' },
-      { pos: [16, 17], color: 'B' },
+      { coordinate: { x: 16, y: 4 }, color: 'B' },
+      { coordinate: { x: 4, y: 16 }, color: 'W' },
+      { coordinate: { x: 16, y: 17 }, color: 'B' },
     ]
 
     drawer.stones(canvas2dContextMock, moves)
@@ -68,5 +68,15 @@ describe('BoardDrawer', () => {
     drawer.coordinates(canvas2dContextMock)
 
     expect(canvas2dContextMock.fillText.mock.calls.length).toBe(19 * 2)
+  })
+
+  it('should calculate correct board coordinate from mouse position', () => {
+    const drawer = new BoardDrawer(19, 100, 100)
+    const mousePosition = { x: 50, y: 50 }
+    const coordinate = drawer.calculateCoordinateFromMousePosition(
+      mousePosition,
+    )
+
+    expect(coordinate).toMatchObject({ x: 10, y: 10 })
   })
 })

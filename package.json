@@ -1,6 +1,6 @@
 {
   "name": "go-lib",
-  "version": "0.1.6",
+  "version": "0.2.6",
   "description": "A React Component that renders a GO Board",
   "author": "Alexander Lücking <alexluecking@gmail.com>",
   "browser": "dist/go-lib.js",
@@ -9,6 +9,7 @@
   "jsnext:main": "es/index.js",
   "license": "MIT",
   "files": [
+    "components",
     "dist",
     "lib",
     "es",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.1.11",
     "babel-preset-react": "^6.23.0",
     "cross-env": "^4.0.0",
