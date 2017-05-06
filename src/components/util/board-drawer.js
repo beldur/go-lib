@@ -7,6 +7,9 @@ const FONT_SIZE_FACTOR = 2.5
 const STAR_POINT_SIZE_FACTOR = 8
 const BACKGROUND_COLOR = 'rgb(251, 196, 103)'
 
+const colorBlack = (opacity: number = 1) => `rgba(0, 0, 0, ${opacity}`
+const colorWhite = (opacity: number = 1) => `rgba(255, 255, 255, ${opacity}`
+
 // BoardDrawer exposes functions for drawing a go board on a 2d context
 class BoardDrawer {
   boxSize: number
@@ -69,17 +72,25 @@ class BoardDrawer {
     ctx.restore()
   }
 
-  stones(ctx: CanvasRenderingContext2D, moves: Array<Move>) {
+  stones(
+    ctx: CanvasRenderingContext2D,
+    moves: Array<Move>,
+    isHover: boolean = false,
+  ) {
     const { lineWidth, boxSize } = this
+    const opacity = isHover ? 0.7 : 1
 
     ctx.save()
     ctx.lineWidth = lineWidth * 2
 
     moves.forEach((move, index) => {
       const isLastMove = index === moves.length - 1
+      const fillStyle = move.color === 'B'
+        ? colorBlack(opacity)
+        : colorWhite(opacity)
 
       // Draw stone
-      ctx.fillStyle = move.color === 'B' ? '#000' : '#FFF'
+      ctx.fillStyle = fillStyle
       ctx.beginPath()
       ctx.arc(
         move.coordinate.x * boxSize,
@@ -88,13 +99,19 @@ class BoardDrawer {
         0,
         2 * Math.PI,
       )
-      ctx.stroke()
+      if (!isHover) {
+        ctx.stroke()
+      }
       ctx.fill()
 
       // Mark last move
-      if (isLastMove) {
+      if (isLastMove && !isHover) {
+        const strokeStyle = move.color === 'B'
+          ? colorWhite(opacity)
+          : colorBlack(opacity)
+
         ctx.beginPath()
-        ctx.strokeStyle = move.color === 'B' ? '#FFF' : '#000'
+        ctx.strokeStyle = strokeStyle
         ctx.lineWidth = lineWidth
         ctx.arc(
           move.coordinate.x * boxSize,
@@ -108,6 +125,10 @@ class BoardDrawer {
     })
 
     ctx.restore()
+  }
+
+  hoverStones(ctx: CanvasRenderingContext2D, moves: Array<Move>) {
+    this.stones(ctx, moves, true)
   }
 
   grid(ctx: CanvasRenderingContext2D) {
@@ -133,7 +154,7 @@ class BoardDrawer {
 
     ctx.save()
     ctx.beginPath()
-    ctx.fillStyle = '#000'
+    ctx.fillStyle = colorBlack()
 
     stars.forEach(pos => {
       ctx.moveTo(pos.x, pos.y)
@@ -150,7 +171,7 @@ class BoardDrawer {
     ctx.save()
     ctx.font = `bold ${fontSize}px sans-serif`
     ctx.textAlign = 'center'
-    ctx.fillStyle = '#000'
+    ctx.fillStyle = colorBlack()
 
     for (let i = 1; i <= boardSize; i++) {
       ctx.fillText(String.fromCharCode(64 + i), i * boxSize, boxSize / 2)
@@ -160,12 +181,17 @@ class BoardDrawer {
     ctx.restore()
   }
 
-  draw(ctx: CanvasRenderingContext2D, moves: Array<Move>) {
+  draw(
+    ctx: CanvasRenderingContext2D,
+    moves: Array<Move>,
+    hoverMoves: Array<Move>,
+  ) {
     this.clear(ctx)
     this.grid(ctx)
     this.coordinates(ctx)
     this.starPoints(ctx)
     this.stones(ctx, moves)
+    this.hoverStones(ctx, hoverMoves)
   }
 
   // calculateCoordinateFromMousePosition convert's a canvas mouse position to a board coordinate

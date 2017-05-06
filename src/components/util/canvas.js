@@ -1,13 +1,16 @@
 // @flow
 
-export const calculateMousePosition = (
+import type { Coordinate } from 'go-lib'
+
+export const calculateCanvasPosition = (
   canvas: HTMLCanvasElement,
-  event: MouseEvent,
-) => {
+  x: number,
+  y: number,
+): Coordinate => {
   const bcr = canvas.getBoundingClientRect()
 
   return {
-    x: event.clientX - bcr.left,
-    y: event.clientY - bcr.top,
+    x: x - bcr.left,
+    y: y - bcr.top,
   }
 }

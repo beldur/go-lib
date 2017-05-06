@@ -14,6 +14,7 @@ const config = {
     react: 'React',
     'prop-types': 'PropTypes',
   },
+  sourceMap: true,
   plugins: [
     nodeResolve({
       jsnext: true,
