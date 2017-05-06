@@ -57,8 +57,10 @@ class Board extends React.PureComponent<BoardDefaultProps, BoardProps, any> {
   componentWillReceiveProps(nextProps: BoardProps) {
     const { positions, width, height, hoverPositions } = nextProps
 
-    this.canvas.width = width
-    this.canvas.height = height
+    if (this.canvas) {
+      this.canvas.width = width
+      this.canvas.height = height
+    }
 
     if (this.context) {
       this.drawer.draw(this.context, positions, hoverPositions)
