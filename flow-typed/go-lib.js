@@ -12,4 +12,6 @@ declare module 'go-lib' {
     coordinate: Coordinate,
     color: Color,
   }
+
+  declare type BoardStatus = Color | 'EMPTY'
 }

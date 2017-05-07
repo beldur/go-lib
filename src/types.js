@@ -1,3 +1,3 @@
 // @flow
 
-export type { Coordinate, Move } from 'go-lib'
+export type { Coordinate, Move, BoardStatus } from 'go-lib'

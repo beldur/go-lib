@@ -1,6 +1,7 @@
 // @flow
 
 import type { Move, Coordinate } from 'go-lib'
+import { BLACK } from '../../constants'
 
 const LINE_WIDTH_FACTOR = 20
 const FONT_SIZE_FACTOR = 2.5
@@ -84,8 +85,10 @@ class BoardDrawer {
     ctx.lineWidth = lineWidth * 2
 
     moves.forEach((move, index) => {
+      const moveX = move.coordinate.x + 1
+      const moveY = move.coordinate.y + 1
       const isLastMove = index === moves.length - 1
-      const fillStyle = move.color === 'B'
+      const fillStyle = move.color === BLACK
         ? colorBlack(opacity)
         : colorWhite(opacity)
 
@@ -93,8 +96,8 @@ class BoardDrawer {
       ctx.fillStyle = fillStyle
       ctx.beginPath()
       ctx.arc(
-        move.coordinate.x * boxSize,
-        move.coordinate.y * boxSize,
+        moveX * boxSize,
+        moveY * boxSize,
         boxSize / 2 - lineWidth,
         0,
         2 * Math.PI,
@@ -106,20 +109,14 @@ class BoardDrawer {
 
       // Mark last move
       if (isLastMove && !isHover) {
-        const strokeStyle = move.color === 'B'
+        const strokeStyle = move.color === BLACK
           ? colorWhite(opacity)
           : colorBlack(opacity)
 
         ctx.beginPath()
         ctx.strokeStyle = strokeStyle
         ctx.lineWidth = lineWidth
-        ctx.arc(
-          move.coordinate.x * boxSize,
-          move.coordinate.y * boxSize,
-          boxSize / 3.5,
-          0,
-          2 * Math.PI,
-        )
+        ctx.arc(moveX * boxSize, moveY * boxSize, boxSize / 3.5, 0, 2 * Math.PI)
         ctx.stroke()
       }
     })
@@ -196,8 +193,8 @@ class BoardDrawer {
 
   // calculateCoordinateFromMousePosition convert's a canvas mouse position to a board coordinate
   calculateCoordinateFromMousePosition(mousePosition: Coordinate): Coordinate {
-    const x = Math.round(mousePosition.x / this.boxSize)
-    const y = Math.round(mousePosition.y / this.boxSize)
+    const x = Math.round(mousePosition.x / this.boxSize) - 1
+    const y = Math.round(mousePosition.y / this.boxSize) - 1
 
     return { x, y }
   }

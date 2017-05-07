@@ -77,6 +77,6 @@ describe('BoardDrawer', () => {
       mousePosition,
     )
 
-    expect(coordinate).toEqual({ x: 10, y: 10 })
+    expect(coordinate).toEqual({ x: 9, y: 9 })
   })
 })
